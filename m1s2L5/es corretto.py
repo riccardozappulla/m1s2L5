@@ -10,6 +10,7 @@ def sMsPsAsS(comando):
     comando=comando.replace("ò","o")
     comando=comando.replace("ù","u")
     comando=re.sub(r"\s+$", "", comando)
+    comando = comando.lstrip()
     return comando
 
 def assistente_virtuale(comando):

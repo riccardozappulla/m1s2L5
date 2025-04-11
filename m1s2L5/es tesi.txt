@@ -32,8 +32,9 @@
 				comando=comando.replace("ì","i")
 				comando=comando.replace("ò","o")
 				comando=comando.replace("ù","u")
-				comando=re.sub(r"\s+$", "", comando)		:per togliere gli spazzi a fine frase/stringa
-				return comando
+				comando=re.sub(r"\s+$", "", comando)		:per togliere gli spazzi alla fine della frase/stringa
+				comando = comando.lstrip()					:per togliere gli spazzi all'inizio della frase/stringa
+				return comando								 (ho usato due metodi diversi per togliere gli spazzi)
 			
 		richiamando questa funzione prima di passare "comando_utente" al controllo dell'IF "if comando_utente.lower() == "esci":"
 	
