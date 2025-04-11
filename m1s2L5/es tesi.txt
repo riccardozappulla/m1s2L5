@@ -1,0 +1,63 @@
+1. 	Capire cosa fa il programma senza eseguirlo.
+	
+		Il programma e un semplice assistente vocale che risponde a tre domande specifiche che l'utente può porre.:
+			"Qual è la data di oggi?" 		: 	In risposta a questa domanda, il programma risponde con 
+			riga 3(riferimento (es originale))	""La data di oggi è " + oggi.strftime("%d/%m/%Y")"
+												La data di oggi è 11/04/2025
+									  
+			"Che ore sono?" 				: 	In risposta a questa domanda, il programma risponde con
+			riga 6(riferimento (es originale))	""L'ora attuale è " + ora_attuale.strftime("%H:%M")"
+												L'ora attuale è 09:44
+									  
+			"Come ti chiami?" 				: 	In risposta a questa domanda, il programma risponde con
+			riga 9(riferimento (es originale))	"Mi chiamo Assistente Virtuale"    
+
+			in fine contemple il caso di non capire la domanda e stampa a schermo "Non ho capito la tua domanda."
+		
+2. 	Individuare nel codice sorgente le casistiche non standard che il programma non gestisce 
+	(esempio, comportamenti potenziali che non sono stati contemplati).
+	
+		l'utente alla domanda "Cosa vuoi sapere? " potrebbe non sapere che rispondere e anche se lo sapesse 
+		potrebbe non cosiderare la corretta ortografia e punteggiatura. il programma accetta *solo* risposte 
+		perfettamente corrette ad esempio quelle citete in alto con iniziale maiuscola, lettere accentate e punto interrogativo
+		questo problema potrebbe essere risolto tramite una semplice funzione
+	
+			import re
+
+			def sMsP(comando):
+				comando = str.lower(comando)
+				comando = re.sub(r'[^\w\s]', '', comando)
+				comando=comando.replace("à","a")
+				comando=comando.replace("è","e")
+				comando=comando.replace("ì","i")
+				comando=comando.replace("ò","o")
+				comando=comando.replace("ù","u")
+				return comando
+			
+		richiamando questa funzione prima di passare "comando_utente" al controllo dell'IF "if comando_utente.lower() == "esci":"
+	
+			while True:    
+				comando_utente = input("Cosa vuoi sapere? ") 
+				comando_utente = sMsP(comando_utente)
+				if comando_utente.lower() == "esci":
+	
+		E sostituendo le domande con corrispettivi più semplici, senza maiuscole, lettere accentate e punteggiatura. 
+		
+			"qual e la data di oggi"
+			"che ore sono"
+			"come ti chiami" 
+
+3.  Individuare eventuali errori di sintassi / logici.
+		non e un errore ma nella:
+			riga 3 (riferimento (es originale)) nella condizzione 
+			(if comando == "qual e la data di oggi":) 
+				ho aggiunto 
+			(if comando == "qual e la data di oggi" or "che giorno e":)
+			per una maggiore compatibilita alle domande inerenti ma precedentemente non supportate
+		nella riga 4 (riferimento (es originale)) (oggi = datetime.datetoday()) la sintassi corretta sarebbe (oggi = datetime.datetime.today())
+		nella riga 14 (riferimento (es originale)) (while True) mancano i (:) la sintassi corretta sarebbe (while True:)
+	
+4. 	Proporre una soluzione per ognuno di essi.
+		ho risposta a questa domana in alto man mano che individuavo criticita nel codice fornito 
+		per maggior semplicita e ciarezza.
+	
