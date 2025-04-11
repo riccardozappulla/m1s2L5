@@ -19,26 +19,27 @@
 	
 		l'utente alla domanda "Cosa vuoi sapere? " potrebbe non sapere che rispondere e anche se lo sapesse 
 		potrebbe non cosiderare la corretta ortografia e punteggiatura. il programma accetta *solo* risposte 
-		perfettamente corrette ad esempio quelle citete in alto con iniziale maiuscola, lettere accentate e punto interrogativo
-		questo problema potrebbe essere risolto tramite una semplice funzione
+		perfettamente corrette ad esempio quelle citete in alto con iniziale maiuscola, lettere accentate, punto interrogativo
+		e gli spazzi a fine frase questo problema potrebbe essere risolto tramite una semplice funzione
 	
 			import re
 
-			def sMsP(comando):
-				comando = str.lower(comando)
-				comando = re.sub(r'[^\w\s]', '', comando)
-				comando=comando.replace("à","a")
+			def sMsPsAsS(comando):
+				comando = str.lower(comando)				:per renderlo maiuscolo           
+				comando = re.sub(r'[^\w\s]', '', comando)	:per togliere la punteggiatura  
+				comando=comando.replace("à","a")			:per togliere gli accenti 
 				comando=comando.replace("è","e")
 				comando=comando.replace("ì","i")
 				comando=comando.replace("ò","o")
 				comando=comando.replace("ù","u")
+				comando=re.sub(r"\s+$", "", comando)		:per togliere gli spazzi a fine frase/stringa
 				return comando
 			
 		richiamando questa funzione prima di passare "comando_utente" al controllo dell'IF "if comando_utente.lower() == "esci":"
 	
 			while True:    
 				comando_utente = input("Cosa vuoi sapere? ") 
-				comando_utente = sMsP(comando_utente)
+				comando_utente = sMsPsAsS(comando_utente)
 				if comando_utente.lower() == "esci":
 	
 		E sostituendo le domande con corrispettivi più semplici, senza maiuscole, lettere accentate e punteggiatura. 
@@ -48,16 +49,19 @@
 			"come ti chiami" 
 
 3.  Individuare eventuali errori di sintassi / logici.
-		non e un errore ma nella:
-			riga 3 (riferimento (es originale)) nella condizzione 
-			(if comando == "qual e la data di oggi":) 
-				ho aggiunto 
-			(if comando == "qual e la data di oggi" or "che giorno e":)
-			per una maggiore compatibilita alle domande inerenti ma precedentemente non supportate
+
 		nella riga 4 (riferimento (es originale)) (oggi = datetime.datetoday()) la sintassi corretta sarebbe (oggi = datetime.datetime.today())
 		nella riga 14 (riferimento (es originale)) (while True) mancano i (:) la sintassi corretta sarebbe (while True:)
 	
 4. 	Proporre una soluzione per ognuno di essi.
 		ho risposta a questa domana in alto man mano che individuavo criticita nel codice fornito 
 		per maggior semplicita e ciarezza.
-	
+		
+		anche se non è un errore per una miglior chiarezza per l'utente metterei prima della scelta una lista di domande accetate ad esempio
+		print("Qual è la data di oggi?")
+		print("Che ore sono?")
+		print("Come ti chiami?")
+		print("se non hai domande (Esci)")
+		
+		forse non e necessario per un assistente vocale o forse implementerei un help che ti consenta di leggere queste informazioni 
+		nel dubbio l'ho fatto (riferimento (es corretto))
